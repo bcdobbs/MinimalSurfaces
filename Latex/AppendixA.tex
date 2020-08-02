@@ -1,0 +1,77 @@
+\newpage
+\appendix
+
+\section{Maple Code Snippets}
+
+Following are code snippets that help with the exploration of minimal surfaces in three space. All code is written in Maple 10 but mostly should be backward compatible. For virtually all cases you will need the following in your header:
+
+\begin{verbatim}
+restart;
+with(LinearAlgebra);
+with(VectorCalculus);
+with(plots);
+\end{verbatim}
+
+\subsection{Harmonic Conjugate}
+The following program takes a function of variables u and v. If it is a harmonic function it will return it's harmonic conjugate if it is not it will inform you that your function is not harmonic. Note that it will not accept a vector, you must deal with each coorodinate component seperatly. Eg If your surface is defined $\mathbf X(u,v) := X_1(u,v) \mathbf e_x + X_2(u,v) \mathbf e_y + X_3(u,v) \mathbf e_z$ you would run ConjHarmonic 3 times with eg \verb|ConjHarmonic(X[1]);|
+
+\begin{verbatim}
+ConjHarmonic := proc (X) 
+    
+local harm, VnoK, K, V; 
+harm := (diff(X, u, u))+(diff(X, v, v)); 
+if harm = 0 then YnoK := int(diff(X, u), v); 
+	Ku := -(diff(X, v))-(diff(YnoK, u)); 
+	Y := YnoK+int(Ku, u); 
+	RETURN(Y);
+else 
+	RETURN(0);
+end if; 
+    
+end proc;
+\end{verbatim}
+
+\newpage
+
+\subsection{Weierstrass-Enneper Representations}
+This takes two functions of the complex variable z and an output selector. Using defintions from section \ref{WERep}: 1 Returns $\mathbf X$, 2 Returns $\mathbf Y$, 3 Returns $\mathbf \Phi$. 
+
+\begin{verbatim}
+WERep := proc(f,g,select)
+    
+local X, Y, Z, Phi;
+assume(u, 'real');
+assume(v, 'real');
+
+Z:=Vector(3); 
+Z[1] := int(f*(1-g^2), z);
+Z[2] := int(I*f*(1+g^2), z);
+Z[3] := int(2*f*g, z);
+
+X:=Vector(3);
+X[1] := simplify(Re(expand(subs(z=u+I*v, Z[1]))),'symbolic');
+X[2] := simplify(Re(expand(subs(z=u+I*v, Z[2]))),'symbolic');
+X[3] := simplify(Re(expand(subs(z=u+I*v, Z[3]))),'symbolic');
+
+Y:=Vector(3);
+Y[1] := simplify(Im(expand(subs(z=u+I*v, Z[1]))),'symbolic');
+Y[2] := simplify(Im(expand(subs(z=u+I*v, Z[2]))),'symbolic');
+Y[3] := simplify(Im(expand(subs(z=u+I*v, Z[3]))),'symbolic');
+
+Phi:=Vector(3);
+Phi[1] := simplify(subs(z=u+I*v, f*(1-g^2)),'symbolic');
+Phi[2] := simplify(subs(z=u+I*v, I*f*(1+g^2)),'symbolic');
+Phi[3] := simplify(subs(z=u+I*v, 2*f*g),'symbolic');
+
+if select = 1 then
+	RETURN(X);
+elif select = 2 then
+	RETURN(Y);
+elif select = 3 then
+	RETURN(Phi);
+else
+	RETURN("Error - Bad Output Selector!")
+end if;
+
+end proc;
+\end{verbatim}

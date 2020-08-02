@@ -1,0 +1,97 @@
+\section{Review of Complex Analysis}
+The examples of minimal surfaces given previously pretty much cover the early developments in minimal surface theory. However the sheer lack of them was proving to be a bottleneck to their study. What was needed was a new way of attacking them and generating new ones. The answer came in the form of Complex Analysis.
+
+In order to proceed we will very briefly give an overview of the main aspects of complex analysis we will be using. Further material on this subject is available in \cite{BCA}.
+
+\subsection{The Cauchy-Riemann Equations}
+These lie at the heart of complex analysis and allow us to differentiate complex functions.
+
+The differential of a complex function is calculated using the same limit as for a real function:
+\begin{displaymath}
+\lim_{z\rightarrow z_0}\frac{f(z_0)-f(z)}{z-z_0}
+\end{displaymath}
+However we can let $z$ approach $z_0$ in any way we please. If
+\begin{displaymath}
+z_o = x_0 + i y_0
+\end{displaymath}
+we can then let $z = x_0 + h + i y_0$ or $z = x_0 + i (y_0+k)$ with $h$ and $k$ real.
+
+However $f'(z)$ must be uniquely defined no matter how we let $z$ approach $z_0$ and so evaluating the limits of the two above cases we get
+
+\begin{displaymath}
+f'(z_0) = \frac{\partial u}{\partial x} + i \frac{\partial v}{\partial x} = \frac{\partial v}{\partial y} - i \frac{\partial u}{\partial y}
+\label{CR}
+\end{displaymath}
+Comparing real and imaginary parts, we find that
+
+\begin{displaymath}
+\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y} \ \ \  \frac{\partial v}{\partial x} =  -\frac{\partial u}{\partial y}
+\end{displaymath}
+
+These are the Cauchy-Riemann equations which hold for differentiable complex functions.
+
+\subsection{Harmonic Functions}
+Harmonic functions uncover a beautiful aspect of minimal surfaces, showing that they come in families.
+
+Given a real valued function $\phi(x,y)$ we say that $\phi$ is a harmonic function if it satisfies \emph{Laplaces Equation}
+
+\begin{displaymath}
+\frac{\partial^2 \phi}{\partial x^2} + \frac{\partial^2 \phi}{\partial y^2} = 0 
+\end{displaymath}
+
+If $f$ is an analytic function (complex differentiable) defined in a domain $D$ and $f(z) = u(x,y)+iv(x,y)$, then we can show both u and v are harmonic in D. 
+
+We know
+
+\begin{displaymath}
+f'(z) = \frac{\partial u}{\partial x} + i \frac{\partial v}{\partial x} = \frac{\partial v}{\partial y} - i \frac{\partial u}{\partial y}
+\end{displaymath}
+
+Setting $f' = U +iV$ and using the Cauchy-Riemann equations for U, V the partial derivatives of U and V exist and satisfy:
+
+\begin{equation}
+\frac{\partial U}{\partial x} = \frac{\partial V}{\partial y}
+\label{CR_A}
+\end{equation}
+\begin{equation}
+\frac{\partial V}{\partial x} =  -\frac{\partial U}{\partial y}
+\label{CR_B}
+\end{equation}
+
+Since
+
+\begin{displaymath}
+U = \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}\ \ \  V = \frac{\partial v}{\partial x} = -\frac{\partial u}{\partial y}
+\end{displaymath}
+
+Subbing into \ref{CR_A} gives 
+
+\begin{displaymath}
+\frac{\partial}{\partial x}(\frac{\partial u}{\partial x}) 
+= \frac{\partial}{\partial x}(\frac{\partial v}{\partial y})
+= \frac{\partial}{\partial y}(\frac{\partial v}{\partial x})
+= -\frac{\partial}{\partial y}(\frac{\partial u}{\partial y})
+\end{displaymath}
+
+So 
+
+\begin{displaymath}
+\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0
+\end{displaymath}
+
+Subbing into \ref{CR_B} gives 
+
+\begin{displaymath}
+\frac{\partial}{\partial x}(\frac{\partial v}{\partial x}) 
+= -\frac{\partial}{\partial x}(\frac{\partial u}{\partial y})
+= -\frac{\partial}{\partial y}(\frac{\partial u}{\partial x})
+= -\frac{\partial}{\partial y}(\frac{\partial v}{\partial y})
+\end{displaymath}
+
+So 
+
+\begin{displaymath}
+\frac{\partial^2 v}{\partial x^2} + \frac{\partial^2 v}{\partial y^2} = 0
+\end{displaymath}
+
+So if $f$ is an analytic function then its real and imaginary parts are harmonic functions.
